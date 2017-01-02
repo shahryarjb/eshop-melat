@@ -82,11 +82,15 @@ class os_mellat extends os_payment
 		$allData = EshopHelper::getOrder(intval($id)); //get all data
 		//$mobile = $allData['telephone'];
 		$jinput = JFactory::getApplication()->input;
-		$ResCode = $jinput->post->get('ResCode', '0', 'INT');
-		$RefId = $jinput->post->get('RefId', '', 'STRING');
-		$SaleOrderId = $jinput->post->get('SaleOrderId', '0', 'INT');
-		$SaleReferenceId = $jinput->post->get('SaleReferenceId', '0', 'INT');
-		$CardNumber = $jinput->post->get('CardHolderPan', '0', 'INT');
+		$ResCode = $jinput->post->get('ResCode', '', 'INT'); 
+		$SaleOrderId = $jinput->post->get('SaleOrderId', '', 'INT'); 
+		$SaleReferenceId = $jinput->post->get('SaleReferenceId', '', 'INT'); 
+		$RefId = $jinput->post->get('RefId', '', 'STRING'); 
+		if (checkHack::strip($RefId) != $RefId )
+			$RefId = "illegal";
+		$CardNumber = $jinput->post->get('CardHolderPan', '', 'STRING'); 
+		if (checkHack::strip($CardNumber) != $CardNumber )
+			$CardNumber = "illegal";
 		
 		$this->logGatewayData(
 			'OrderID:' . $id . 
@@ -100,7 +104,6 @@ class os_mellat extends os_payment
 		if (
 			checkHack::checkNum($id) &&
 			checkHack::checkNum($ResCode) &&
-			checkHack::checkAlphaNumberic($RefId) &&
 			checkHack::checkNum($SaleOrderId) &&
 			checkHack::checkNum($SaleReferenceId) 
 		){
@@ -162,6 +165,7 @@ class os_mellat extends os_payment
 			$app->redirect($link, '<h2>'.$msg.'</h2>' , $msgType='Error'); 
 			return false;	
 		}
+	
 	}
 
 	public function verifyPayment() {
