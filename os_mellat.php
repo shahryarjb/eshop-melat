@@ -82,13 +82,13 @@ class os_mellat extends os_payment
 		$allData = EshopHelper::getOrder(intval($id)); //get all data
 		//$mobile = $allData['telephone'];
 		$jinput = JFactory::getApplication()->input;
-		$ResCode = $jinput->post->get('ResCode', '', 'INT'); 
-		$SaleOrderId = $jinput->post->get('SaleOrderId', '', 'INT'); 
-		$SaleReferenceId = $jinput->post->get('SaleReferenceId', '', 'INT'); 
-		$RefId = $jinput->post->get('RefId', '', 'STRING'); 
+		$ResCode = $jinput->post->get('ResCode', '1', 'INT'); 
+		$SaleOrderId = $jinput->post->get('SaleOrderId', '1', 'INT'); 
+		$SaleReferenceId = $jinput->post->get('SaleReferenceId', '1', 'INT'); 
+		$RefId = $jinput->post->get('RefId', 'empty', 'STRING'); 
 		if (checkHack::strip($RefId) != $RefId )
 			$RefId = "illegal";
-		$CardNumber = $jinput->post->get('CardHolderPan', '', 'STRING'); 
+		$CardNumber = $jinput->post->get('CardHolderPan', 'empty', 'STRING'); 
 		if (checkHack::strip($CardNumber) != $CardNumber )
 			$CardNumber = "illegal";
 		
